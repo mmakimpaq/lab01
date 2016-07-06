@@ -73,8 +73,14 @@ public class PaybackBookKeeperImplTest {
             }
         }).when(paybackRepository).save(any(AccountIncome.class), same(purchase));
 
+        //to dziala tak, ze jezeli bedzie potrzeba wywolania
+        //jakiejs metody na tym obiekcie
+        //to zostanie wyrzucony ten obiekt, ktory zostaje zwrocony w doAnserw
+        //a payBackRepository jest potrzebny do wywolania regisgterPayBackFor
+        //mamy to zamocokowane, jednak niewiadomo konkretnie jak sie to by zachowalo
+        //w przypadku wywloania, wiec robimy sobie wyzej opisane doAnserw
 
-        PaybackConfirmation confirmation = bookKeeper.registerPaybackFor(purchase); // replace with actual call to bookKeeper.registerPaybackFor(..)
+        PaybackConfirmation confirmation =  bookKeeper.registerPaybackFor(purchase); // replace with actual call to bookKeeper.registerPaybackFor(..)
 
         assertThat(confirmation.getNumber()).isEqualTo("1111");
         assertThat(confirmation.getIncome().getAmount()).isEqualTo(Money.of(EUR, 6L));
